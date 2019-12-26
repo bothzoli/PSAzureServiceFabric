@@ -35,6 +35,7 @@
     <ProjectReference Include="..\ECommerce.API\ECommerce.API.csproj">
       <ServiceLaunchUrl>http://{MachineName}:{ServicePort}/weatherforecast</ServiceLaunchUrl>
     </ProjectReference>
+    <ProjectReference Include="..\ECommerce.CheckoutService\ECommerce.CheckoutService.csproj" />
     <ProjectReference Include="..\ECommerce.ProductCatalog\ECommerce.ProductCatalog.csproj" />
     <ProjectReference Include="..\UserActor\UserActor.csproj" />
   </ItemGroup>

@@ -7,6 +7,7 @@ namespace ECommerce.ProductCatalog.Model
 {
     public interface IProductRepository
     {
+        Task<Product> GetProduct(Guid productId);
         Task<IEnumerable<Product>> GetAllProducts();
         Task AddProduct(Product product);
     }

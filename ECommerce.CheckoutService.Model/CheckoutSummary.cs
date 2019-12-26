@@ -4,7 +4,12 @@ using System.Text;
 
 namespace ECommerce.CheckoutService.Model
 {
-    class CheckoutSummary
+    public class CheckoutSummary
     {
+        public List<CheckoutProduct> Products { get; set; }
+
+        public double TotalPrice { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

@@ -4,9 +4,6 @@
     <Parameter Name="ECommerce.CheckoutService_PartitionCount" Value="1" />
     <Parameter Name="ECommerce.CheckoutService_MinReplicaSetSize" Value="3" />
     <Parameter Name="ECommerce.CheckoutService_TargetReplicaSetSize" Value="3" />
-    <Parameter Name="CheckoutService_PartitionCount" Value="1" />
-    <Parameter Name="CheckoutService_MinReplicaSetSize" Value="3" />
-    <Parameter Name="CheckoutService_TargetReplicaSetSize" Value="3" />
     <Parameter Name="ECommerce.API_InstanceCount" Value="-1" />
     <Parameter Name="ECommerce.ProductCatalog_PartitionCount" Value="1" />
     <Parameter Name="ECommerce.ProductCatalog_MinReplicaSetSize" Value="3" />

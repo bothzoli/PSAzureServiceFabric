@@ -8,6 +8,8 @@ namespace ECommerce.ProductCatalog.Model
 {
     public interface IProductCatalogService : IService
     {
+        Task<Product> getProductAsync(Guid productId);
+
         Task<Product[]> GetAllProducts();
 
         Task AddProductAsync(Product product);
