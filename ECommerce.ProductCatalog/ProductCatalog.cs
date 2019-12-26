@@ -33,7 +33,7 @@ namespace ECommerce.ProductCatalog
             return (await _repo.GetAllProducts()).ToArray();
         }
 
-        public async Task<Product> getProductAsync(Guid productId)
+        public async Task<Product> GetProductAsync(Guid productId)
         {
             return await _repo.GetProduct(productId);
         }

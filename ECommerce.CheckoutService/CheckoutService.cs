@@ -42,7 +42,7 @@ namespace ECommerce.CheckoutService
 
             foreach(BasketItem basketLine in basket)
             {
-                Product product = await catalogService.getProductAsync(basketLine.ProductId);
+                Product product = await catalogService.GetProductAsync(basketLine.ProductId);
                 var checkoutProduct = new CheckoutProduct
                 {
                     Product = product,
@@ -77,9 +77,28 @@ namespace ECommerce.CheckoutService
                 new Uri("fabric:/ECommerce/UserActorService"));
         }
 
-        public Task<CheckoutSummary[]> GetOrderHistoryAsync(string userId)
+        public async Task<CheckoutSummary[]> GetOrderHistoryAsync(string userId)
         {
-            throw new NotImplementedException();
+            var result = new List<CheckoutSummary>();
+            IReliableDictionary<DateTime, CheckoutSummary> history =
+               await StateManager.GetOrAddAsync<IReliableDictionary<DateTime, CheckoutSummary>>("history");
+
+            using (ITransaction tx = StateManager.CreateTransaction())
+            {
+                Microsoft.ServiceFabric.Data.IAsyncEnumerable<KeyValuePair<DateTime, CheckoutSummary>> allProducts =
+                   await history.CreateEnumerableAsync(tx, EnumerationMode.Unordered);
+                using (Microsoft.ServiceFabric.Data.IAsyncEnumerator<KeyValuePair<DateTime, CheckoutSummary>> enumerator = allProducts.GetAsyncEnumerator())
+                {
+                    while (await enumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        KeyValuePair<DateTime, CheckoutSummary> current = enumerator.Current;
+
+                        result.Add(current.Value);
+                    }
+                }
+            }
+
+            return result.ToArray();
         }
 
         private async Task AddToHistoryAsync(CheckoutSummary checkout)

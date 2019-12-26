@@ -1,0 +1,68 @@
+@startuml GetAllProducts
+
+actor User
+boundary API
+control ProductsController
+control CatalogService
+database ProductCatalog
+
+User -> API: GET api/products
+API -> ProductsController: GetAsync
+ProductsController -> CatalogService: GetAllProducts
+CatalogService -> ProductCatalog: GetAllProducts
+ProductCatalog -> ProductCatalog: GetOrAddAsync\n("products")
+ProductCatalog -> ProductCatalog: CreateEnumerableAsync
+CatalogService <-- ProductCatalog: IEnumerable<Product>
+ProductsController <-- CatalogService: Products[]
+API <-- ProductsController: IEnumerable<ApiProduct>
+User <-- API
+
+@enduml
+
+
+@startuml AddToBasket
+
+actor User
+boundary API
+control BasketController
+entity UserActor
+
+User -> API: POST api/basket/1
+API -> BasketController: AddAsync
+BasketController -> UserActor: AddToBasket
+UserActor -> UserActor: AddOrUpdateStateAsync
+
+@enduml
+
+
+@startuml Checkout
+
+actor User
+boundary API
+control CheckoutController
+control CheckoutService
+entity UserActor
+control CatalogService
+database ProductCatalog
+
+User -> API: GET api/checkout/1
+API -> CheckoutController: CheckoutAsync
+CheckoutController -> CheckoutService: CheckoutAsync
+CheckoutService -> UserActor: GetBasket
+UserActor -> UserActor: GetStateNamesAsync\n("ProductIds")
+UserActor -> UserActor: GetStateAsync\n("Quantity")
+CheckoutService <-- UserActor: BasketItem[]
+CheckoutService -> CatalogService: GetProductAsync
+CatalogService -> ProductCatalog: GetProduct
+ProductCatalog -> ProductCatalog: GetOrAddAsync\n("products")
+ProductCatalog -> ProductCatalog: TryGetValueAsync
+CatalogService <-- ProductCatalog: Product
+CheckoutService <-- CatalogService: Product
+CheckoutService -> CheckoutService: Sum prices
+CheckoutService -> UserActor: ClearBasket
+CheckoutService -> CheckoutService: AddToHistoryAsync
+CheckoutController <-- CheckoutService: CheckoutSummary
+API <-- CheckoutController: ApiCheckoutSummary
+User <-- API
+
+@enduml
