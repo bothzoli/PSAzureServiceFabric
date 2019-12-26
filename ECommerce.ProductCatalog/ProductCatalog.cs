@@ -58,36 +58,36 @@ namespace ECommerce.ProductCatalog
         {
             _repo = new ServiceFabricProductRepository(this.StateManager);
 
-            //var product1 = new Product
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "Dell Monitor",
-            //    Description = "Computer Monitor",
-            //    Price = 500,
-            //    Availability = 100
-            //};
+            var product1 = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = "Dell Monitor",
+                Description = "Computer Monitor",
+                Price = 500,
+                Availability = 100
+            };
 
-            //var product2 = new Product
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "Surface Book",
-            //    Description = "Microsoft's Latest Laptop",
-            //    Price = 2200,
-            //    Availability = 15
-            //};
+            var product2 = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = "Surface Book",
+                Description = "Microsoft's Latest Laptop",
+                Price = 2200,
+                Availability = 15
+            };
 
-            //var product3 = new Product
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Name = "Arc Touch Mouse",
-            //    Description = "Computer Mouse",
-            //    Price = 60,
-            //    Availability = 30
-            //};
+            var product3 = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = "Arc Touch Mouse",
+                Description = "Computer Mouse",
+                Price = 60,
+                Availability = 30
+            };
 
-            //await _repo.AddProduct(product1);
-            //await _repo.AddProduct(product2);
-            //await _repo.AddProduct(product3);
+            await _repo.AddProduct(product1);
+            await _repo.AddProduct(product2);
+            await _repo.AddProduct(product3);
         }
     }
 }
